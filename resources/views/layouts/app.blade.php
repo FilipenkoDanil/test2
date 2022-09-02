@@ -26,6 +26,20 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
+
+                @auth()
+                    @if(\Illuminate\Support\Facades\Auth::user()->hasRole('admin'))
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link @if(request()->route()->getName() === 'authors.index') active @endif" href="{{ route('authors.index') }}">Authors</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @if(request()->route()->getName() == 'books.index') active @endif" href="{{ route('books.index') }}">Books</a>
+                            </li>
+                        </ul>
+                    @endif
+                @endauth
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>

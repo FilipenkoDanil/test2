@@ -17,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['prefix' => 'books'], function () {
+    Route::get('/list', [\App\Http\Controllers\API\BookController::class, 'index']);
+    Route::get('/by-id/{id}', [\App\Http\Controllers\API\BookController::class, 'byId']);
+    Route::put('/update/{id}', [\App\Http\Controllers\API\BookController::class, 'update']);
+    Route::post('/delete/{id}', [\App\Http\Controllers\API\BookController::class, 'destroy']);
+});

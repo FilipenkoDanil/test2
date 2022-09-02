@@ -10,4 +10,9 @@ class Book extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function author()
+    {
+        return $this->belongsTo(Author::class);
+    }
 }

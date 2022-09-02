@@ -13,10 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [\App\Http\Controllers\PublicController::class, 'index']);
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group(['middleware' => ['role:admin']], function () {
+    Route::resource('admin/authors', \App\Http\Controllers\Admin\AuthorController::class);
+    Route::resource('admin/books', \App\Http\Controllers\Admin\BookController::class);
+});
+
